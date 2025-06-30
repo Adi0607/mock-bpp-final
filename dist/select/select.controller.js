@@ -16,12 +16,45 @@ exports.SelectController = void 0;
 const common_1 = require("@nestjs/common");
 let SelectController = class SelectController {
     handleSelect(body) {
+        const context = body.context;
         return {
-            context: body.context,
+            context: Object.assign(Object.assign({}, context), { action: 'on_select', bpp_id: 'mock-bpp-final.onrender.com', bpp_uri: 'https://mock-bpp-final.onrender.com', message_id: 'msg-onselect-001', timestamp: new Date().toISOString() }),
             message: {
                 order: {
-                    provider: { id: 'provider-1' },
-                    items: [{ id: 'item-1', quantity: { count: 1 } }],
+                    provider: {
+                        id: 'provider-1',
+                        descriptor: { name: 'Mock Store' }
+                    },
+                    items: [
+                        {
+                            id: 'item-1',
+                            descriptor: { name: 'Mock Product' },
+                            quantity: { count: 1 },
+                            price: { currency: 'INR', value: '100' }
+                        }
+                    ],
+                    fulfillments: [
+                        {
+                            type: 'Delivery',
+                            end: {
+                                location: {
+                                    gps: '12.9715987,77.5945627',
+                                    address: {
+                                        door: '123',
+                                        locality: 'Koramangala',
+                                        city: 'Bengaluru',
+                                        state: 'KA',
+                                        country: 'IND',
+                                        area_code: '560034'
+                                    }
+                                },
+                                contact: {
+                                    phone: '9999999999',
+                                    email: 'test@example.com'
+                                }
+                            }
+                        }
+                    ]
                 }
             }
         };
